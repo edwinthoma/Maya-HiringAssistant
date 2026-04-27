@@ -56,7 +56,7 @@ def get_maya_response(user_input:str)->str:
     
     #Send the entire conversation history to  OpenAI            
     response=client.chat.completions.create(
-        model="gpt-4o",
+        model="gpt-4o-mini",
         messages=st.session_state.messages,
         temperature=0.5,
         max_tokens=500
@@ -67,7 +67,7 @@ def get_maya_response(user_input:str)->str:
     
     #Append Maya's reply to history so future calls include it 
     st.session_state.messages.append({
-        "role":"asssistant",
+        "role":"assistant",
         "content":maya_reply
     })
     

@@ -25,7 +25,7 @@ initialize_session()
 #We skip the first messafge (index 0) as its the system prompt
 
 for message in st.session_state.messages[1:]:
-    with st.chat.message(message["role"]):
+    with st.chat_message(message["role"]):
         st.markdown(message["content"])
         
         
@@ -59,9 +59,18 @@ if user_input:
             response=get_maya_response(user_input)
         st.markdown(response)
      
-#Conversation Ended state   
+#CONVERSATION ENDED STATE
 if st.session_state.conversation_ended:
     st.info(
-        "This screening session has ended."
-        "Refresh the page to start a new session"
+        "This screening session has ended. "
+        "Thank you for your time!"
     )
+
+    # Restart button — clears all session state and reruns the app
+    # st.rerun() tells Streamlit to immediately rerun the script from scratch
+    if st.button("Start New Session"):
+        # Clear every key from session state
+        for key in list(st.session_state.keys()):
+            del st.session_state[key]
+        # Rerun the app — initialize_session() will rebuild everything fresh
+        st.rerun()
