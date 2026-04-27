@@ -11,6 +11,7 @@ from maya import (
     start_interview,
     handle_answer_and_next
 )
+
 # --- PAGE CONFIGURATION ---
 # Sets the browser tab title and page layout
 st.set_page_config(

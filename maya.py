@@ -100,7 +100,7 @@ def get_opening_greeting() -> str:
     }
 
     response = client.chat.completions.create(
-        model="gpt-4o",
+        model="gpt-4o-mini",
         # We pass history + a temporary instruction — not appended permanently
         messages=st.session_state.messages + [opening_instruction],
         temperature=0.7,
