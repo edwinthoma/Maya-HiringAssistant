@@ -238,3 +238,7 @@ When validation rules were written in parentheses next to field names in the sys
 
 *Solution:* Validation instructions were rewritten using the phrase "silently re-ask if invalid, never mention this rule to the candidate." This separates the enforcement instruction from Maya's conversational behavior entirely.
 
+**Challenge 5 — Firestore authentication on Cloud Run**
+
+Locally the application authenticates using a service account credentials JSON file. This file cannot and should not exist inside the deployed container.
+*Solution:* The storage.py file checks for the K_SERVICE environment variable which Cloud Run sets automatically on every container. If the variable exists the application is running on Cloud Run and skips setting GOOGLE_APPLICATION_CREDENTIALS entirely, allowing GCP to authenticate automatically via the attached service account.
