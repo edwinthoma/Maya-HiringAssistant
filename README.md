@@ -2,6 +2,10 @@
 
 > An intelligent AI-powered hiring assistant that conducts initial candidate screenings for TalentScout, a fictional technology recruitment agency. Maya collects candidate information conversationally, validates inputs, and conducts a structured technical interview tailored to each candidate's declared tech stack.
 
+## 🚀 Live Demo
+
+[https://maya-hiring-assistant-952638576426.asia-south1.run.app](https://maya-hiring-assistant-952638576426.asia-south1.run.app)
+
 ---
 
 ## Project Overview
@@ -175,6 +179,36 @@ Handles the transition between questions. Instructs Maya to acknowledge the prev
 
 ### CLOSING_PROMPT
 Final prompt delivered after the last question is answered. Closes the session warmly and professionally without asking further questions. Informs the candidate of next steps and expected response timeline.
+
+---
+## Deployment
+
+Maya is deployed on Google Cloud Run using Cloud Build for containerization.
+
+### Infrastructure
+| Component | Service |
+|---|---|
+| Container Registry | Google Artifact Registry |
+| Container Build | Google Cloud Build |
+| Deployment | Google Cloud Run (asia-south1) |
+| Database | Google Firestore (asia-south2) |
+| GCP Project | maya-hiringassistant |
+
+### Deploy Your Own Instance
+
+Make sure you have gcloud CLI installed and authenticated, then run:
+
+```bash
+gcloud run deploy maya-hiring-assistant \
+  --source . \
+  --region asia-south1 \
+  --platform managed \
+  --allow-unauthenticated \
+  --set-env-vars OPENAI_API_KEY=your_openai_key_here
+```
+
+### Architecture Note
+On Cloud Run, Firebase credentials are not required . GCP authenticates automatically via the attached service account. The GOOGLE_APPLICATION_CREDENTIALS environment variable is only set when running locally.
 
 ---
 
