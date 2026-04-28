@@ -10,14 +10,17 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-# Tell the Google Cloud library where to find your credentials JSON file.
-# os.path.join builds the full path to the file relative to this script.
-# This environment variable is read automatically by the Firestore client.
-credentials_path = os.path.join(
-    os.path.dirname(__file__),
-    "firebase-credentials.json"
-)
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = credentials_path
+# Only set credentials path when running locally.
+# On Cloud Run, GCP authenticates automatically via the attached service account.
+# os.environ.get("K_SERVICE") is an environment variable that Cloud Run sets
+# automatically on every container — if it exists we're on Cloud Run,
+# if it doesn't we're running locally.
+if not os.environ.get("K_SERVICE"):
+    credentials_path = os.path.join(
+        os.path.dirname(__file__),
+        "firebase-credentials.json"
+    )
+    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = credentials_path
 
 # Initialize the Firestore client.
 # project= tells it which GCP project to connect to.
